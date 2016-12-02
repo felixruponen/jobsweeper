@@ -26,7 +26,7 @@ public class HttpGet extends Http {
         URL url;
         HttpURLConnection urlConnection = null;
         try {
-            url = new URL(uri);
+            url = new URL(BASE_URL + uri);
             urlConnection = (HttpURLConnection) url.openConnection();
 
             int responseCode = urlConnection.getResponseCode();

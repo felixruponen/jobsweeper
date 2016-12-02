@@ -17,6 +17,8 @@ public abstract class Http extends AsyncTask<Void, Void, Void> {
     protected String uri;
     protected OnResponse<String> onResponse;
 
+    protected static final String BASE_URL = "http://192.168.8.101:8888";
+
     public Http(String uri, OnResponse<String> onResponse) {
         this.uri = uri;
         this.onResponse = onResponse;

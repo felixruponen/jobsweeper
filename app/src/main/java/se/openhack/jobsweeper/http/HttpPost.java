@@ -31,7 +31,7 @@ public class HttpPost extends Http {
     protected Void doInBackground(Void... params) {
         URL url;
         try {
-            url = new URL(uri);
+            url = new URL(BASE_URL + uri);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");

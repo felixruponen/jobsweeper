@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
+import se.openhack.jobsweeper.http.HttpGet;
 
 public class HomeFragment extends Fragment {
 
@@ -26,6 +28,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -33,8 +36,22 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        HttpGet getjobs = new HttpGet("/jobs", new OnResponse<String>() {
+            @Override
+            public void onResponse(String res) {
+
+                System.out.println(res);
+            }
+        });
+
+        getjobs.execute();
+
+
         return view;
     }
+
+
 
     @Override
     public void onAttach(Context context) {
