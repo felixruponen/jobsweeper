@@ -8,9 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
 import se.openhack.jobsweeper.http.HttpGet;
+import se.openhack.jobsweeper.models.JobAdvert;
 
 public class HomeFragment extends Fragment {
 
@@ -41,7 +49,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(String res) {
 
-                System.out.println(res);
+                List<JobAdvert> jobAdverts = new ArrayList<>();
+
+                try {
+                    JSONArray adverts = new JSONArray(res);
+                    for(int i = 0; i < adverts.length(); i++){
+                        jobAdverts.add(new JobAdvert(adverts.getJSONObject(i).toString()));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JobAdvert jobAdvert = new JobAdvert(res);
             }
         });
 

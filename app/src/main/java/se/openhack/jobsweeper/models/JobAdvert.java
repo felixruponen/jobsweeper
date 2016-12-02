@@ -23,13 +23,15 @@ public class JobAdvert extends Model {
     @Override
     protected void parseModel(String json) {
 
+
         try {
-            JSONObject jobAdvert = new JSONObject(json);
+            JSONObject o = new JSONObject(json);
+            JSONObject jobAdvert = o.getJSONObject("platsannons");
             JSONObject advert = jobAdvert.getJSONObject("annons");
-            JSONObject terms = jobAdvert.getJSONObject("villkor");
+            JSONObject terms = jobAdvert.getJSONObject("krav");
             JSONObject application = jobAdvert.getJSONObject("ansokan");
             JSONObject workspace = jobAdvert.getJSONObject("arbetsplats");
-            JSONObject requirements = jobAdvert.getJSONObject("krav");
+            JSONObject requirements = jobAdvert.getJSONObject("villkor");
 
             this.advert = new Advert(advert.toString());
             this.terms = new Terms(terms.toString());
