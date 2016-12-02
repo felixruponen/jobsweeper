@@ -6,6 +6,8 @@ package se.openhack.jobsweeper.models;
 
 public class Workspace extends Model {
 
+    
+
     public Workspace(String json) {
         super(json);
     }
