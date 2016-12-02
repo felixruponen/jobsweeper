@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import se.openhack.jobsweeper.R;
 import se.openhack.jobsweeper.fragments.HomeFragment;
+import se.openhack.jobsweeper.fragments.JobSwipeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setFragment(HomeFragment.newInstance(), "", false);
+        setFragment(JobSwipeFragment.newInstance(), "", false);
     }
 
 
