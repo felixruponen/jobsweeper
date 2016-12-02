@@ -1,5 +1,7 @@
 package se.openhack.jobsweeper.activities;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +35,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         transaction.commitAllowingStateLoss();
+    }
+
+    public void saveKey(String key, String value){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public String getKey(String key){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getString(key, null);
     }
 
 }
