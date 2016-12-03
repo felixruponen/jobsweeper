@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     List<Fragment> pages;
     String[] titles;
+    TextView txtUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class UserProfileActivity extends AppCompatActivity {
         pages.add(UserPreferenceFragment.newInstance());
         titles = new String[3];
         titles[0] = "Taggar";
+        txtUsername = (TextView)findViewById(R.id.userName);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
@@ -53,6 +56,19 @@ public class UserProfileActivity extends AppCompatActivity {
 
         ViewPager profilePager = (ViewPager) findViewById(R.id.profilePager);
         profilePager.setAdapter(userProfilePagerAdapter);
+    }
+
+    public void setProfileImage(String url){
+        if(url != null && url.length() > 0){
+            Picasso.with(this)
+                    .load(url)
+                    .transform(new CircleTransform())
+                    .into((ImageView) findViewById(R.id.userAvatar));
+        }
+    }
+
+    public void setProfileName(String name){
+        txtUsername.setText(name);
     }
 
     @Override

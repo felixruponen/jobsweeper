@@ -17,12 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
-import se.openhack.jobsweeper.activities.MainActivity;
 import se.openhack.jobsweeper.activities.UserProfileActivity;
 import se.openhack.jobsweeper.http.HttpGet;
 import se.openhack.jobsweeper.http.HttpPost;
@@ -139,10 +135,12 @@ public class UserPreferenceFragment extends Fragment {
 
         int userId = ((UserProfileActivity)getActivity()).getIntKey("userId");
         spinner.setVisibility(View.VISIBLE);
-        HttpGet getUser = new HttpGet("/user", userId, new OnResponse<String>() {
+        final HttpGet getUser = new HttpGet("/user", userId, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
                 user = new User(res);
+                ((UserProfileActivity)getActivity()).setProfileImage(user.getImage());
+                ((UserProfileActivity)getActivity()).setProfileName(user.getName());
                 spinner.setVisibility(View.GONE);
                 refreshAdapter();
             }
