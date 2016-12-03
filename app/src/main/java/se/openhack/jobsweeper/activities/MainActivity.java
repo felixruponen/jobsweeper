@@ -37,10 +37,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, UserProfileActivity.class);
                 startActivity(intent);
                 break;
+            case android.R.id.home:
+                onBackPressed();
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setHomeAsUpIndicator(null);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
