@@ -11,6 +11,19 @@ public class Contact extends Model {
 
     private String name;
     private String number;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     private String email;
 
     public Contact(String json) {
@@ -21,9 +34,9 @@ public class Contact extends Model {
     protected void parseModel(String json) {
         try {
             JSONObject object = new JSONObject(json);
-            this.name = object.getString("namn");
-            this.number = object.getString("telefonnummer");
-            this.email = object.getString("epostadress");
+            this.name = object.optString("namn");
+            this.number = object.optString("telefonnummer");
+            this.email = object.optString("epostadress");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -17,8 +17,8 @@ public class HttpGet extends Http {
 
     String response;
 
-    public HttpGet(String uri, OnResponse<String> onResponse) {
-        super(uri, onResponse);
+    public HttpGet(String uri, int userId, OnResponse<String> onResponse) {
+        super(uri, userId, onResponse);
     }
 
     @Override
@@ -28,6 +28,7 @@ public class HttpGet extends Http {
         try {
             url = new URL(BASE_URL + uri);
             urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection = setHeaders(urlConnection);
 
             int responseCode = urlConnection.getResponseCode();
 

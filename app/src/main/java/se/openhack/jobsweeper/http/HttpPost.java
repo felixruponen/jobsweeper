@@ -2,14 +2,11 @@ package se.openhack.jobsweeper.http;
 
 import android.util.Log;
 
-import org.json.JSONObject;
-
 import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
 import se.openhack.jobsweeper.OnResponse;
 
@@ -19,12 +16,12 @@ import se.openhack.jobsweeper.OnResponse;
 
 public class HttpPost extends Http {
 
-    HashMap<String, String> postDataParams;
+    String payload;
     String response;
 
-    public HttpPost(String uri, OnResponse<String> onResponse, HashMap<String, String> postDataParams) {
-        super(uri, onResponse);
-        this.postDataParams = postDataParams;
+    public HttpPost(String uri, int userId, OnResponse<String> onResponse, String payload) {
+        super(uri, userId, onResponse);
+        this.payload = payload;
     }
 
     @Override
@@ -37,11 +34,12 @@ public class HttpPost extends Http {
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection = setHeaders(urlConnection);
+
 
             OutputStream os = urlConnection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString());
+            writer.write(payload);
 
             writer.flush();
             writer.close();
@@ -59,13 +57,7 @@ public class HttpPost extends Http {
             e.printStackTrace();
         }
 
-
         return null;
-    }
-
-    public String getPostDataString() {
-        String postData = new JSONObject(postDataParams).toString();
-        return postData;
     }
 
     @Override

@@ -20,6 +20,43 @@ public class Workspace extends Model {
     private String postalCountry;
     private String country;
     private String visitingAddress;
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public String getLogotypeUrl() {
+        return logotypeUrl;
+    }
+
+    public String getVisitingAddress() {
+        return visitingAddress;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPostalCountry() {
+        return postalCountry;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     private String logotypeUrl;
 
     private List<Contact> contacts;
@@ -37,14 +74,14 @@ public class Workspace extends Model {
 
         try {
             JSONObject object = new JSONObject(json);
-            this.name = object.getString("arbetsplatsnamn");
-            this.zipCode = object.getString("postnummer");
-            this.address = object.getString("postadress");
-            this.city = object.getString("postort");
-            this.postalCountry = object.getString("postland");
-            this.country = object.getString("land");
-            this.visitingAddress = object.getString("besoksadress");
-            this.logotypeUrl = object.getString("logotypurl");
+            this.name = object.optString("arbetsplatsnamn");
+            this.zipCode = object.optString("postnummer");
+            this.address = object.optString("postadress");
+            this.city = object.optString("postort");
+            this.postalCountry = object.optString("postland");
+            this.country = object.optString("land");
+            this.visitingAddress = object.optString("besoksadress");
+            this.logotypeUrl = object.optString("logotypurl");
 
             JSONObject obj = object.getJSONObject("kontaktpersonlista");
             JSONArray contacts = obj.getJSONArray("kontaktpersondata");

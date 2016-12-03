@@ -20,6 +20,55 @@ public class Advert extends Model {
     private String kommunName;
     private int kommunId;
     private int numberOfSlotsShow;
+
+    public String getEmploymentType() {
+        return employmentType;
+    }
+
+    public int getNumberOfSlotsShow() {
+        return numberOfSlotsShow;
+    }
+
+    public int getKommunId() {
+        return kommunId;
+    }
+
+    public String getKommunName() {
+        return kommunName;
+    }
+
+    public int getNumberOfSlots() {
+        return numberOfSlots;
+    }
+
+    public String getPublishDate() {
+        return publishDate;
+    }
+
+    public int getWorkId() {
+        return workId;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     private String employmentType;
 
 
@@ -32,18 +81,18 @@ public class Advert extends Model {
 
         try {
             JSONObject object = new JSONObject(json);
-            this.id = object.getInt("annonsid");
-            this.url = object.getString("platsannonsUrl");
-            this.title = object.getString("annonsrubrik");
-            this.text = object.getString("annonstext");
-            this.jobTitle = object.getString("yrkesbenamning");
-            this.workId = object.getInt("yrkesid");
-            this.publishDate = object.getString("publiceraddatum");
-            this.numberOfSlots = object.getInt("antal_platser");
-            this.kommunName = object.getString("kommunnamn");
-            this.kommunId = object.getInt("kommunkod");
-            this.numberOfSlotsShow = object.getInt("antalplatserVisa");
-            this.employmentType = object.getString("anstallningstyp");
+            this.id = object.optInt("annonsid");
+            this.url = object.optString("platsannonsUrl");
+            this.title = object.optString("annonsrubrik");
+            this.text = object.optString("annonstext");
+            this.jobTitle = object.optString("yrkesbenamning");
+            this.workId = object.optInt("yrkesid");
+            this.publishDate = object.optString("publiceraddatum");
+            this.numberOfSlots = object.optInt("antal_platser");
+            this.kommunName = object.optString("kommunnamn");
+            this.kommunId = object.optInt("kommunkod");
+            this.numberOfSlotsShow = object.optInt("antalplatserVisa");
+            this.employmentType = object.optString("anstallningstyp");
 
         } catch (JSONException e) {
             e.printStackTrace();

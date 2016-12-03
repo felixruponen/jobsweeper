@@ -45,28 +45,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        HttpGet getjobs = new HttpGet("/jobs", new OnResponse<String>() {
-            @Override
-            public void onResponse(String res) {
-
-                List<JobAdvert> jobAdverts = new ArrayList<>();
-
-                try {
-                    JSONArray adverts = new JSONArray(res);
-                    for(int i = 0; i < adverts.length(); i++){
-                        jobAdverts.add(new JobAdvert(adverts.getJSONObject(i).toString()));
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                JobAdvert jobAdvert = new JobAdvert(res);
-            }
-        });
-
-        getjobs.execute();
-
 
         return view;
     }

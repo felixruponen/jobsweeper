@@ -10,6 +10,10 @@ import org.json.JSONObject;
 
 public class Terms extends Model {
 
+    public boolean isHaveCar() {
+        return haveCar;
+    }
+
     private boolean haveCar;
 
     public Terms(String json) {
@@ -20,7 +24,7 @@ public class Terms extends Model {
     protected void parseModel(String json) {
         try {
             JSONObject object = new JSONObject(json);
-            this.haveCar = object.getBoolean("egenbil");
+            this.haveCar = object.optBoolean("egenbil");
 
         } catch (JSONException e) {
             e.printStackTrace();

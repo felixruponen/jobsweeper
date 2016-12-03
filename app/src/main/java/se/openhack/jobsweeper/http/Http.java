@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URLConnection;
 
 import se.openhack.jobsweeper.OnResponse;
 
@@ -16,14 +18,22 @@ import se.openhack.jobsweeper.OnResponse;
 public abstract class Http extends AsyncTask<Void, Void, Void> {
     protected String uri;
     protected OnResponse<String> onResponse;
-
+    protected int userId;
     protected static final String BASE_URL = "http://192.168.8.101:8888";
 
-    public Http(String uri, OnResponse<String> onResponse) {
+
+    public Http(String uri, int userId, OnResponse<String> onResponse) {
         this.uri = uri;
         this.onResponse = onResponse;
+        this.userId = userId;
     }
 
+    protected HttpURLConnection setHeaders(HttpURLConnection urlConnection){
+        urlConnection.setRequestProperty("Content-Type", "application/json");
+        urlConnection.setRequestProperty("js-userid", userId + "");
+
+        return urlConnection;
+    }
 
     protected String readStream(InputStream in) {
         BufferedReader reader = null;
