@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import java.util.List;
 import se.openhack.jobsweeper.Helper;
 import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
+import se.openhack.jobsweeper.RoundedCornersTransform;
 import se.openhack.jobsweeper.activities.MainActivity;
 import se.openhack.jobsweeper.http.HttpGet;
 import se.openhack.jobsweeper.http.HttpPost;
@@ -217,6 +220,7 @@ public class JobSwipeFragment extends Fragment {
             private Button btnSeeMore;
             private Button btnWorkingHours;
             private TextView place;
+            private ImageView jobLogo;
         }
 
         public JobSwipeAdapter(Context context, ArrayList<JobAdvert> items) {
@@ -237,7 +241,7 @@ public class JobSwipeFragment extends Fragment {
                 viewHolder.btnSeeMore = (Button) convertView.findViewById(R.id.btn_readMore);
                 viewHolder.place = (TextView) convertView.findViewById(R.id.txt_place);
                 viewHolder.btnWorkingHours = (Button) convertView.findViewById(R.id.btn_workHours);
-
+                viewHolder.jobLogo = (ImageView) convertView.findViewById(R.id.jobLogo);
 
 
                 convertView.setTag(viewHolder);
@@ -265,6 +269,14 @@ public class JobSwipeFragment extends Fragment {
                     viewHolder.btnWorkingHours.setVisibility(View.GONE);
                 }
 
+
+                if(jobAdvert.getWorkspace() != null && jobAdvert.getWorkspace().getLogotypeUrl() != null && !"".equals(jobAdvert.getWorkspace().getLogotypeUrl())) {
+                    viewHolder.jobLogo.setVisibility(View.VISIBLE);
+                    Picasso.with(getContext())
+                            .load(jobAdvert.getWorkspace().getLogotypeUrl())
+                            .transform(new RoundedCornersTransform())
+                            .into(viewHolder.jobLogo);
+                }
 
                 viewHolder.benamning.setText(jobAdvert.getAdvert().getJobTitle());
                 viewHolder.advertId.setText("Annonsid: " + jobAdvert.getAdvert().getId());

@@ -42,6 +42,7 @@ public class UserProfileActivity extends AppCompatActivity {
         titles[0] = "Taggar";
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
 
         Picasso.with(this)
                 .load(R.drawable.profile_placeholder)
