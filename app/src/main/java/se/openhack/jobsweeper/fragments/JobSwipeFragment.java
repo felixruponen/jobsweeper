@@ -58,6 +58,7 @@ public class JobSwipeFragment extends Fragment {
     }
 
     private void collectJobs(){
+        spinner.setVisibility(View.VISIBLE);
         int userId = ((MainActivity)getActivity()).getIntKey("userId");
         HttpGet getjobs = new HttpGet("/jobs", userId, new OnResponse<String>() {
             @Override
@@ -182,23 +183,18 @@ public class JobSwipeFragment extends Fragment {
                 //If you want to use it just cast it (String) dataObject
                 JobAdvert advert = (JobAdvert)dataObject;
                 postDelta(advert, -1);
-
-                Toast.makeText(getContext(), "Left!", Toast.LENGTH_SHORT).show();
             }
-
 
             @Override
             public void onRightCardExit(Object dataObject) {
-
                 JobAdvert advert = (JobAdvert)dataObject;
                 postDelta(advert, 1);
-
-                Toast.makeText(getContext(), "Right!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 // Ask for more data here
+                collectJobs();
             }
 
             @Override
@@ -283,7 +279,8 @@ public class JobSwipeFragment extends Fragment {
 
                 //Concat the title
                 if(viewText.length() > 350){
-                    viewText = viewText.substring(0, 350) + "...";
+                    viewText = viewText.substring(0, 350).replace("\n", "") + "...";
+
                 }
                 viewHolder.jobDescription.setText(viewText);
                 viewHolder.place.setText(jobAdvert.getAdvert().getKommunName());
