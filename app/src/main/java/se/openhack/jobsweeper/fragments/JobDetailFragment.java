@@ -1,12 +1,16 @@
 package se.openhack.jobsweeper.fragments;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import se.openhack.jobsweeper.R;
 import se.openhack.jobsweeper.models.JobAdvert;
@@ -40,6 +44,16 @@ public class JobDetailFragment extends Fragment {
 
         TextView txtText = (TextView)v.findViewById(R.id.txt_text);
         txtText.setText(jobAdvert.getAdvert().getText());
+
+        ImageView imageView = (ImageView) v.findViewById(R.id.jobLogo);
+
+        if(jobAdvert.getWorkspace() != null && jobAdvert.getWorkspace().getLogotypeUrl() != null && !"".equals(jobAdvert.getWorkspace().getLogotypeUrl())) {
+            imageView.setVisibility(View.VISIBLE);
+
+            Picasso.with(getContext())
+                    .load(jobAdvert.getWorkspace().getLogotypeUrl())
+                    .into(imageView);
+        }
 
         return v;
     }

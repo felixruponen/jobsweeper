@@ -199,6 +199,7 @@ public class JobSwipeFragment extends Fragment {
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 // Ask for more data here
+                collectJobs();
             }
 
             @Override
