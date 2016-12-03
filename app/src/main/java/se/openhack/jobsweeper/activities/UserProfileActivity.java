@@ -1,5 +1,7 @@
 package se.openhack.jobsweeper.activities;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -39,9 +41,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         ViewPager profilePager = (ViewPager) findViewById(R.id.profilePager);
         profilePager.setAdapter(userProfilePagerAdapter);
-
     }
-
 
     @Override
     public boolean onNavigateUp() {
@@ -73,4 +73,10 @@ public class UserProfileActivity extends AppCompatActivity {
             return "Tab " + position;
         }
     }
+
+    public int getIntKey(String key){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getInt(key, -1);
+    }
+
 }

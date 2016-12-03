@@ -12,11 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-
-import se.openhack.jobsweeper.CircleTransform;
 import se.openhack.jobsweeper.R;
 import se.openhack.jobsweeper.fragments.JobSwipeFragment;
 

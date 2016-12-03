@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:textSize="30sp"
         android:background="@color/colorAccent"
+        android:id="@+id/btnDecrease"
         android:text="-"/>
 
     <TextView
@@ -26,6 +27,7 @@
         android:layout_height="match_parent"
         android:textSize="30sp"
         android:textColor="#fff"
+        android:id="@+id/btnIncrease"
         android:background="@drawable/ripple_primary"
         android:text="+"/>
 </LinearLayout>

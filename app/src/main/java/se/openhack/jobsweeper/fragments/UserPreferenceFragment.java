@@ -7,19 +7,31 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
+import se.openhack.jobsweeper.activities.MainActivity;
+import se.openhack.jobsweeper.activities.UserProfileActivity;
+import se.openhack.jobsweeper.http.HttpGet;
+import se.openhack.jobsweeper.http.HttpPost;
+import se.openhack.jobsweeper.models.Tag;
+import se.openhack.jobsweeper.models.User;
 
 public class UserPreferenceFragment extends Fragment {
 
-
-
-    List<String> competences = new ArrayList<String>();
+    User user;
+    View view;
 
     public UserPreferenceFragment() {
         // Required empty public constructor
@@ -35,29 +47,100 @@ public class UserPreferenceFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_preference, container, false);
+        view = inflater.inflate(R.layout.fragment_user_preference, container, false);
 
-        competences.add("Java");
-        competences.add("Java");
-        competences.add("Java");
-        competences.add("Java");
-
-
-        for(String competence : competences) {
-            LinearLayout incrementLayout = (LinearLayout) getLayoutInflater(savedInstanceState).inflate(R.layout.competence_increment, null);
-            TextView incrementCompetence = (TextView) incrementLayout.findViewById(R.id.incrementCompetence);
-            incrementCompetence.setText(competence);
-
-            ((LinearLayout) view).addView(incrementLayout);
-        }
+        collectUserTags();
 
         return view;
+    }
+
+
+    private void postTagChange(Tag tag, int delta){
+        JSONObject jsonTag = new JSONObject();
+        JSONArray payload = new JSONArray();
+        try {
+            jsonTag.put("name", tag.getName());
+            jsonTag.put("delta", delta);
+            payload.put(jsonTag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        HttpPost editTag = new HttpPost("/update-tags", ((UserProfileActivity) getActivity()).getIntKey("userid"), new OnResponse<String>() {
+            @Override
+            public void onResponse(String res) {
+                collectUserTags();
+            }
+        }, payload.toString());
+
+        editTag.execute();
+    }
+
+    private void decreaseTag(Tag tag){
+        postTagChange(tag, -1);
+    }
+
+    private void increaseTag(Tag tag){
+        postTagChange(tag, 1);
+    }
+
+    private void refreshAdapter(){
+
+        if(user != null){
+            LinearLayout ll = (LinearLayout) view.findViewById(R.id.ll_userPreference);
+            ll.removeAllViews();
+            for(final Tag tag : user.getTags()) {
+
+                LinearLayout incrementLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.competence_increment, null);
+
+                TextView incrementCompetence = (TextView) incrementLayout.findViewById(R.id.incrementCompetence);
+                incrementCompetence.setText(tag.getName() + " -> " + tag.getCounter());
+
+                Button btnDecrease = (Button) incrementLayout.findViewById(R.id.btnDecrease);
+                btnDecrease.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        decreaseTag(tag);
+                    }
+                });
+
+                Button btnIncrease = (Button) incrementLayout.findViewById(R.id.btnIncrease);
+                btnIncrease.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        increaseTag(tag);
+                    }
+                });
+
+
+
+                ll.addView(incrementLayout);
+            }
+        }
+    }
+
+    private void collectUserTags() {
+
+        int userId = ((UserProfileActivity)getActivity()).getIntKey("userId");
+
+        HttpGet getUser = new HttpGet("/user", userId, new OnResponse<String>() {
+            @Override
+            public void onResponse(String res) {
+                user = new User(res);
+
+                refreshAdapter();
+            }
+        });
+
+        getUser.execute();
     }
 
     @Override
