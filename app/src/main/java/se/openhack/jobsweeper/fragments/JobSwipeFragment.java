@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -31,6 +32,7 @@ import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
 import se.openhack.jobsweeper.RoundedCornersTransform;
 import se.openhack.jobsweeper.activities.MainActivity;
+import se.openhack.jobsweeper.flingswipe.SwipeFlingAdapterView;
 import se.openhack.jobsweeper.http.HttpGet;
 import se.openhack.jobsweeper.http.HttpPost;
 import se.openhack.jobsweeper.models.JobAdvert;
@@ -97,7 +99,7 @@ public class JobSwipeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_job_swipe, container, false);
@@ -150,6 +152,27 @@ public class JobSwipeFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onMoveCenter(View convertView) {
+                ((LinearLayout) convertView.findViewById(R.id.swipeIndicator)).setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onMoveBeyondLeftBorder(View convertView) {
+                ((LinearLayout) convertView.findViewById(R.id.swipeIndicator)).setVisibility(View.VISIBLE);
+                ((TextView) convertView.findViewById(R.id.swipeIndicatorText)).setText("Inte intresserad");
+                ((TextView) convertView.findViewById(R.id.swipeIndicatorText)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
+                ((TextView) convertView.findViewById(R.id.swipeIndicatorText)).setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.swipe_indicator_decline) );
+            }
+
+            @Override
+            public void onMoveBeyondRightBorder(View convertView) {
+                ((LinearLayout) convertView.findViewById(R.id.swipeIndicator)).setVisibility(View.VISIBLE);
+                ((TextView) convertView.findViewById(R.id.swipeIndicatorText)).setText("Intresserad");
+                ((TextView) convertView.findViewById(R.id.swipeIndicatorText)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
+                ((TextView) convertView.findViewById(R.id.swipeIndicatorText)).setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.swipe_indicator_accept) );
             }
 
             @Override
@@ -221,6 +244,7 @@ public class JobSwipeFragment extends Fragment {
             private Button btnWorkingHours;
             private TextView place;
             private ImageView jobLogo;
+            private TextView swipeIndicator;
         }
 
         public JobSwipeAdapter(Context context, ArrayList<JobAdvert> items) {
@@ -242,7 +266,7 @@ public class JobSwipeFragment extends Fragment {
                 viewHolder.place = (TextView) convertView.findViewById(R.id.txt_place);
                 viewHolder.btnWorkingHours = (Button) convertView.findViewById(R.id.btn_workHours);
                 viewHolder.jobLogo = (ImageView) convertView.findViewById(R.id.jobLogo);
-
+                viewHolder.swipeIndicator = (TextView) convertView.findViewById(R.id.swipeIndicatorText);
 
                 convertView.setTag(viewHolder);
             } else {
@@ -274,7 +298,7 @@ public class JobSwipeFragment extends Fragment {
                     viewHolder.jobLogo.setVisibility(View.VISIBLE);
                     Picasso.with(getContext())
                             .load(jobAdvert.getWorkspace().getLogotypeUrl())
-                            .transform(new RoundedCornersTransform())
+                            //.transform(new RoundedCornersTransform())
                             .into(viewHolder.jobLogo);
                 }
 
