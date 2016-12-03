@@ -274,7 +274,7 @@ public class JobSwipeFragment extends Fragment {
                     viewHolder.jobLogo.setVisibility(View.VISIBLE);
                     Picasso.with(getContext())
                             .load(jobAdvert.getWorkspace().getLogotypeUrl())
-                            .transform(new RoundedCornersTransform())
+                            //.transform(new RoundedCornersTransform())
                             .into(viewHolder.jobLogo);
                 }
 
