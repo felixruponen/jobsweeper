@@ -83,13 +83,16 @@ public class Workspace extends Model {
             this.visitingAddress = object.optString("besoksadress");
             this.logotypeUrl = object.optString("logotypurl");
 
-            JSONObject obj = object.getJSONObject("kontaktpersonlista");
-            JSONArray contacts = obj.getJSONArray("kontaktpersondata");
+            JSONObject obj = object.optJSONObject("kontaktpersonlista");
 
-            this.contacts = new ArrayList<>();
-            for(int i = 0; i < contacts.length(); i++){
-                JSONObject contactJson = contacts.getJSONObject(i);
-                this.contacts.add(new Contact(contactJson.toString()));
+            if(obj != null){
+                JSONArray contacts = obj.getJSONArray("kontaktpersondata");
+
+                this.contacts = new ArrayList<>();
+                for(int i = 0; i < contacts.length(); i++){
+                    JSONObject contactJson = contacts.getJSONObject(i);
+                    this.contacts.add(new Contact(contactJson.toString()));
+                }
             }
 
         } catch (JSONException e) {

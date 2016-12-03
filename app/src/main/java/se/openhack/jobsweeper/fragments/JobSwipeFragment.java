@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -206,6 +207,12 @@ public class JobSwipeFragment extends Fragment {
 
         public class ViewHolder {
             private TextView jobTitle;
+            private TextView jobDescription;
+            private TextView advertId;
+            private TextView previousExperience;
+            private TextView requiredCompentences;
+            private Button btnSeeMore;
+
         }
 
         public JobSwipeAdapter(Context context, ArrayList<JobAdvert> items) {
@@ -215,11 +222,16 @@ public class JobSwipeFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(this.getContext())
-                        .inflate(R.layout.card_job, parent, false);
+                convertView = LayoutInflater.from(this.getContext()).inflate(R.layout.card_job, parent, false);
 
                 viewHolder = new ViewHolder();
-                viewHolder.jobTitle = (TextView) convertView.findViewById(R.id.jobTitle);
+                viewHolder.jobTitle = (TextView) convertView.findViewById(R.id.txt_jobTitle);
+                viewHolder.jobDescription = (TextView) convertView.findViewById(R.id.txt_jobDescription);
+                viewHolder.advertId = (TextView) convertView.findViewById(R.id.txt_advertId);
+                viewHolder.previousExperience = (TextView) convertView.findViewById(R.id.txt_jobPreviousExperience);
+                viewHolder.requiredCompentences = (TextView) convertView.findViewById(R.id.txt_jobRequiredCompetences);
+                viewHolder.btnSeeMore = (Button) convertView.findViewById(R.id.btn_readMore);
+
 
                 convertView.setTag(viewHolder);
             } else {
@@ -231,6 +243,26 @@ public class JobSwipeFragment extends Fragment {
                 // My layout has only one TextView
                 // do whatever you want with your string and long
                 viewHolder.jobTitle.setText(jobAdvert.getAdvert().getJobTitle());
+
+                String viewText = jobAdvert.getAdvert().getText();
+
+                //Concat the title
+                if(viewText.length() > 350){
+                    viewText = viewText.substring(0, 350) + "...";
+                }
+
+                viewHolder.jobDescription.setText(viewText);
+
+                ///viewHolder.advertId.setText(jobAdvert.getAdvert().getId());
+                viewHolder.previousExperience.setText("?");
+
+                viewHolder.btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ((MainActivity)getActivity()).setFragment(JobDetailFragment.newInstance(), "", false);
+                    }
+                });
+
             }
 
             return convertView;
