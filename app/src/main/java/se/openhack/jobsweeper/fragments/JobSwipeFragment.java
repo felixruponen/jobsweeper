@@ -36,6 +36,7 @@ public class JobSwipeFragment extends Fragment {
 
     JobSwipeAdapter swipeAdapter;
     ArrayList<JobAdvert> jobAdverts = new ArrayList<>();
+    ProgressBar spinner;
 
     public JobSwipeFragment() {
         // Required empty public constructor
@@ -73,9 +74,10 @@ public class JobSwipeFragment extends Fragment {
                     }
                     e.printStackTrace();
                 }
+
+                spinner.setVisibility(View.GONE);
             }
         });
-
         getjobs.execute();
     }
 
@@ -98,6 +100,7 @@ public class JobSwipeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_job_swipe, container, false);
         //add the view via xml or programmatically
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.swipe);
+        spinner = (ProgressBar) view.findViewById(R.id.spinner);
 
         //choose your favorite adapter
         swipeAdapter = new JobSwipeAdapter(getContext(), jobAdverts);
@@ -210,8 +213,10 @@ public class JobSwipeFragment extends Fragment {
             private TextView jobDescription;
             private TextView advertId;
             private TextView previousExperience;
-            private TextView requiredCompentences;
+            private TextView benamning;
             private Button btnSeeMore;
+            private Button btnWorkingHours;
+            private TextView place;
 
         }
 
@@ -228,9 +233,12 @@ public class JobSwipeFragment extends Fragment {
                 viewHolder.jobTitle = (TextView) convertView.findViewById(R.id.txt_jobTitle);
                 viewHolder.jobDescription = (TextView) convertView.findViewById(R.id.txt_jobDescription);
                 viewHolder.advertId = (TextView) convertView.findViewById(R.id.txt_advertId);
-                viewHolder.previousExperience = (TextView) convertView.findViewById(R.id.txt_jobPreviousExperience);
-                viewHolder.requiredCompentences = (TextView) convertView.findViewById(R.id.txt_jobRequiredCompetences);
+                //viewHolder.previousExperience = (TextView) convertView.findViewById(R.id.txt);
+                viewHolder.benamning = (TextView) convertView.findViewById(R.id.txt_benamning);
                 viewHolder.btnSeeMore = (Button) convertView.findViewById(R.id.btn_readMore);
+                viewHolder.place = (TextView) convertView.findViewById(R.id.txt_place);
+                viewHolder.btnWorkingHours = (Button) convertView.findViewById(R.id.btn_workHours);
+
 
 
                 convertView.setTag(viewHolder);
@@ -242,7 +250,7 @@ public class JobSwipeFragment extends Fragment {
             if (jobAdvert != null) {
                 // My layout has only one TextView
                 // do whatever you want with your string and long
-                viewHolder.jobTitle.setText(jobAdvert.getAdvert().getJobTitle());
+                viewHolder.jobTitle.setText(jobAdvert.getAdvert().getTitle());
 
                 String viewText = jobAdvert.getAdvert().getText();
 
@@ -250,11 +258,17 @@ public class JobSwipeFragment extends Fragment {
                 if(viewText.length() > 350){
                     viewText = viewText.substring(0, 350) + "...";
                 }
-
                 viewHolder.jobDescription.setText(viewText);
+                viewHolder.place.setText(jobAdvert.getAdvert().getKommunName());
+                if(jobAdvert.getRequirements().getWorkingTimes() != null && jobAdvert.getRequirements().getWorkingTimes().length() > 0){
+                    viewHolder.btnWorkingHours.setText(jobAdvert.getRequirements().getWorkingTimes());
+                }else{
+                    viewHolder.btnWorkingHours.setVisibility(View.GONE);
+                }
 
-                ///viewHolder.advertId.setText(jobAdvert.getAdvert().getId());
-                viewHolder.previousExperience.setText("?");
+
+                viewHolder.benamning.setText(jobAdvert.getAdvert().getJobTitle());
+                viewHolder.advertId.setText("Annonsid: " + jobAdvert.getAdvert().getId());
 
                 viewHolder.btnSeeMore.setOnClickListener(new View.OnClickListener() {
                     @Override
