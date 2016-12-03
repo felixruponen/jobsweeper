@@ -8,52 +8,62 @@
     <android.support.design.widget.AppBarLayout
         android:layout_height="150dp"
         android:layout_width="match_parent">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginBottom="32dp"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.Toolbar
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header" />
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:id="@+id/toolbar"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginBottom="32dp"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:paddingTop="25dp"
-                android:paddingBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/userAvatar"
-                    android:src="@drawable/profile_placeholder"
-                    android:scaleType="centerCrop"
-                    android:cropToPadding="true"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp" />
+                <android.support.v7.widget.Toolbar
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:id="@+id/toolbar"
+                    app:layout_scrollFlags="scroll|enterAlways"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/userName"
-                    android:text="Victor Axelsson"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/colorAccent"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </android.support.design.widget.CollapsingToolbarLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/userAvatar"
+                        android:src="@drawable/profile_placeholder"
+                        android:scaleType="centerCrop"
+                        android:cropToPadding="true"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/userName"
+                        android:text="Victor Axelsson"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="center"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 

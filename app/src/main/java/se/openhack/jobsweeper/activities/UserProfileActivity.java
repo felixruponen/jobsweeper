@@ -5,9 +5,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +19,7 @@ import java.util.List;
 
 import se.openhack.jobsweeper.CircleTransform;
 import se.openhack.jobsweeper.R;
+import se.openhack.jobsweeper.fragments.SwipesFragment;
 import se.openhack.jobsweeper.fragments.UserPreferenceFragment;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -40,11 +39,18 @@ public class UserProfileActivity extends AppCompatActivity {
 
         pages = new ArrayList<>();
         pages.add(UserPreferenceFragment.newInstance());
+        pages.add(SwipesFragment.newInstance("/user-tags-swiped/positive"));
+        pages.add(SwipesFragment.newInstance("/user-tags-swiped/negative"));
+
+
         titles = new String[3];
         titles[0] = "Taggar";
+        titles[1] = "Intresserad";
+        titles[2] = "Inte intresserad";
         txtUsername = (TextView)findViewById(R.id.userName);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
 
         Picasso.with(this)
