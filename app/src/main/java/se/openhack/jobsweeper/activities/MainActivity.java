@@ -2,6 +2,7 @@ package se.openhack.jobsweeper.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import se.openhack.jobsweeper.R;
 import se.openhack.jobsweeper.fragments.JobSwipeFragment;
 
@@ -49,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Main");
         setSupportActionBar(toolbar);
+
+        //getSupportActionBar().setIcon(R.drawable.actionbar_icon);
+        TextView tv = (TextView) findViewById(R.id.app_title);
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "montserrat_bold.ttf");
+        tv.setTypeface(face);
 
         setFragment(JobSwipeFragment.newInstance(), "", false);
     }

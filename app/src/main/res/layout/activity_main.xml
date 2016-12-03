@@ -6,8 +6,10 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -26,6 +28,19 @@
                 android:id="@+id/toolbar"
                 app:layout_scrollFlags="scroll|enterAlways"/>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/app_title"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/colorWhite"
+                    android:text="JOB SWEEPER" />
+            </LinearLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
