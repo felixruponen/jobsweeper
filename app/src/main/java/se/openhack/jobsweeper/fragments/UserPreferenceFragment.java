@@ -33,7 +33,6 @@ public class UserPreferenceFragment extends Fragment {
 
     User user;
     View view;
-    ProgressBar spinner;
 
     public UserPreferenceFragment() {
         // Required empty public constructor
@@ -57,7 +56,6 @@ public class UserPreferenceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_preference, container, false);
-        spinner = (ProgressBar)view.findViewById(R.id.spinner_userSettings);
 
 
         collectUserTags();
@@ -66,7 +64,7 @@ public class UserPreferenceFragment extends Fragment {
     }
 
 
-    private void postTagChange(Tag tag, int delta){
+    private void postTagChange(Tag tag, int delta, final ViewHolder viewHolder){
 
         JSONObject wrapper = new JSONObject();
         JSONObject jsonTag = new JSONObject();
@@ -83,10 +81,14 @@ public class UserPreferenceFragment extends Fragment {
 
         int userid = ((UserProfileActivity) getActivity()).getIntKey("userId");
 
-        spinner.setVisibility(View.VISIBLE);
+        viewHolder.progressBar.setVisibility(View.VISIBLE);
+        viewHolder.txtTag.setVisibility(View.GONE);
+
         HttpPost editTag = new HttpPost("/update-tags", userid, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
+                viewHolder.progressBar.setVisibility(View.GONE);
+                viewHolder.txtTag.setVisibility(View.VISIBLE);
                 collectUserTags();
             }
         }, wrapper.toString());
@@ -94,12 +96,12 @@ public class UserPreferenceFragment extends Fragment {
         editTag.execute();
     }
 
-    private void decreaseTag(Tag tag){
-        postTagChange(tag, -1);
+    private void decreaseTag(Tag tag, ViewHolder viewHolder){
+        postTagChange(tag, -1, viewHolder);
     }
 
-    private void increaseTag(Tag tag){
-        postTagChange(tag, 1);
+    private void increaseTag(Tag tag, ViewHolder viewHolder){
+        postTagChange(tag, 1, viewHolder);
     }
 
     private void refreshAdapter(){
@@ -110,25 +112,27 @@ public class UserPreferenceFragment extends Fragment {
             for(final Tag tag : user.getTags()) {
 
                 LinearLayout incrementLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.competence_increment, null);
+                final ViewHolder viewHolder = new ViewHolder();
+                viewHolder.txtTag = (TextView) incrementLayout.findViewById(R.id.incrementCompetence);
+                viewHolder.txtTag.setText(tag.getName() + " -> " + tag.getCounter());
 
-                TextView incrementCompetence = (TextView) incrementLayout.findViewById(R.id.incrementCompetence);
-                incrementCompetence.setText(tag.getName() + " -> " + tag.getCounter());
-
-                Button btnDecrease = (Button) incrementLayout.findViewById(R.id.btnDecrease);
-                btnDecrease.setOnClickListener(new View.OnClickListener() {
+                viewHolder.btnDecrease = (Button) incrementLayout.findViewById(R.id.btnDecrease);
+                viewHolder.btnDecrease.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        decreaseTag(tag);
+                        decreaseTag(tag, viewHolder);
                     }
                 });
 
-                Button btnIncrease = (Button) incrementLayout.findViewById(R.id.btnIncrease);
-                btnIncrease.setOnClickListener(new View.OnClickListener() {
+                viewHolder.btnIncrease = (Button) incrementLayout.findViewById(R.id.btnIncrease);
+                viewHolder.btnIncrease.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        increaseTag(tag);
+                        increaseTag(tag, viewHolder);
                     }
                 });
+
+                viewHolder.progressBar = (ProgressBar) incrementLayout.findViewById(R.id.incrementCompetenceSpinner);
 
                 ll.addView(incrementLayout);
             }
@@ -138,12 +142,11 @@ public class UserPreferenceFragment extends Fragment {
     private void collectUserTags() {
 
         int userId = ((UserProfileActivity)getActivity()).getIntKey("userId");
-        spinner.setVisibility(View.VISIBLE);
+
         HttpGet getUser = new HttpGet("/user", userId, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
                 user = new User(res);
-                spinner.setVisibility(View.GONE);
                 refreshAdapter();
             }
         });
@@ -161,4 +164,11 @@ public class UserPreferenceFragment extends Fragment {
         super.onDetach();
     }
 
+
+    public class ViewHolder {
+        Button btnIncrease;
+        Button btnDecrease;
+        TextView txtTag;
+        ProgressBar progressBar;
+    }
 }
