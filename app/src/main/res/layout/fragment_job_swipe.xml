@@ -15,7 +15,7 @@
         android:visibility="visible"
         android:id="@+id/spinner"/>
 
-    <com.lorentzos.flingswipe.SwipeFlingAdapterView
+    <se.openhack.jobsweeper.flingswipe.SwipeFlingAdapterView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/swipe"
