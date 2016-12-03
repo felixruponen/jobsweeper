@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_marginBottom="10dp"
-    android:layout_height="50dp">
+    android:layout_height="50dp"
+    android:paddingBottom="1dp">
 
 
     <Button
@@ -10,7 +11,8 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:textSize="30sp"
-        android:background="@color/colorAccent"
+        android:textColor="#4c4c4c"
+        android:background="@color/colorWhite"
         android:id="@+id/btnDecrease"
         android:text="-"/>
 
@@ -31,7 +33,7 @@
         android:id="@+id/incrementCompetenceSpinner"
         android:indeterminate="true"
         android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTint="@color/colorWhite"
         android:gravity="center"
         android:visibility="gone"/>
 
@@ -40,8 +42,9 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:textSize="30sp"
-        android:textColor="#fff"
         android:id="@+id/btnIncrease"
-        android:background="@drawable/ripple_primary"
+        android:textColor="#4c4c4c"
+        android:background="@color/colorWhite"
         android:text="+"/>
+
 </LinearLayout>
