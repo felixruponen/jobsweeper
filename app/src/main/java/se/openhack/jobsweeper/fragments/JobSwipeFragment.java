@@ -217,7 +217,6 @@ public class JobSwipeFragment extends Fragment {
             private Button btnSeeMore;
             private Button btnWorkingHours;
             private TextView place;
-
         }
 
         public JobSwipeAdapter(Context context, ArrayList<JobAdvert> items) {
@@ -246,7 +245,7 @@ public class JobSwipeFragment extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            JobAdvert jobAdvert = getItem(position);
+            final JobAdvert jobAdvert = getItem(position);
             if (jobAdvert != null) {
                 // My layout has only one TextView
                 // do whatever you want with your string and long
@@ -273,7 +272,11 @@ public class JobSwipeFragment extends Fragment {
                 viewHolder.btnSeeMore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ((MainActivity)getActivity()).setFragment(JobDetailFragment.newInstance(), "", false);
+
+                        JobDetailFragment fr = new JobDetailFragment();
+                        fr.setJobAdvert(jobAdvert);
+
+                        ((MainActivity)getActivity()).setFragment(fr, "", true);
                     }
                 });
 
