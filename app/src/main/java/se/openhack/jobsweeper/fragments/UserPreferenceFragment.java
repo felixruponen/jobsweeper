@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class UserPreferenceFragment extends Fragment {
 
     User user;
     View view;
+    ProgressBar spinner;
 
     public UserPreferenceFragment() {
         // Required empty public constructor
@@ -55,6 +57,8 @@ public class UserPreferenceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_preference, container, false);
+        spinner = (ProgressBar)view.findViewById(R.id.spinner_userSettings);
+
 
         collectUserTags();
 
@@ -63,23 +67,29 @@ public class UserPreferenceFragment extends Fragment {
 
 
     private void postTagChange(Tag tag, int delta){
+
+        JSONObject wrapper = new JSONObject();
         JSONObject jsonTag = new JSONObject();
         JSONArray payload = new JSONArray();
         try {
             jsonTag.put("name", tag.getName());
             jsonTag.put("delta", delta);
             payload.put(jsonTag);
+
+            wrapper.put("tags", payload);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        int userid = ((UserProfileActivity) getActivity()).getIntKey("userId");
 
-        HttpPost editTag = new HttpPost("/update-tags", ((UserProfileActivity) getActivity()).getIntKey("userid"), new OnResponse<String>() {
+        spinner.setVisibility(View.VISIBLE);
+        HttpPost editTag = new HttpPost("/update-tags", userid, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
                 collectUserTags();
             }
-        }, payload.toString());
+        }, wrapper.toString());
 
         editTag.execute();
     }
@@ -120,8 +130,6 @@ public class UserPreferenceFragment extends Fragment {
                     }
                 });
 
-
-
                 ll.addView(incrementLayout);
             }
         }
@@ -130,12 +138,12 @@ public class UserPreferenceFragment extends Fragment {
     private void collectUserTags() {
 
         int userId = ((UserProfileActivity)getActivity()).getIntKey("userId");
-
+        spinner.setVisibility(View.VISIBLE);
         HttpGet getUser = new HttpGet("/user", userId, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
                 user = new User(res);
-
+                spinner.setVisibility(View.GONE);
                 refreshAdapter();
             }
         });

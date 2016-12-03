@@ -15,11 +15,17 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import se.openhack.jobsweeper.CircleTransform;
 import se.openhack.jobsweeper.R;
 import se.openhack.jobsweeper.fragments.UserPreferenceFragment;
 
 public class UserProfileActivity extends AppCompatActivity {
+
+    List<Fragment> pages;
+    String[] titles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,11 @@ public class UserProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Main");
         setSupportActionBar(toolbar);
+
+        pages = new ArrayList<>();
+        pages.add(UserPreferenceFragment.newInstance());
+        titles = new String[3];
+        titles[0] = "Taggar";
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -60,17 +71,17 @@ public class UserProfileActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return UserPreferenceFragment.newInstance();
+            return pages.get(position);
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return pages.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Tab " + position;
+            return titles[position];
         }
     }
 

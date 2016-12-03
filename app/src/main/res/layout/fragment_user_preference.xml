@@ -5,11 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/ll_userPreference">
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <ProgressBar
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/spinner_userSettings"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ll_userPreference">
+
+        </LinearLayout>
+    </RelativeLayout>
 </ScrollView>
