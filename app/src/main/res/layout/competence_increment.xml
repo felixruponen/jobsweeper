@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_marginBottom="10dp"
+    android:layout_height="50dp">
+    <Button
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:textSize="30sp"
+        android:background="@color/colorAccent"
+        android:text="-"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:id="@+id/incrementCompetence"
+        android:gravity="center"
+        android:text="Java (1)"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:textSize="30sp"
+        android:textColor="#fff"
+        android:background="@drawable/ripple_primary"
+        android:text="+"/>
+</LinearLayout>
