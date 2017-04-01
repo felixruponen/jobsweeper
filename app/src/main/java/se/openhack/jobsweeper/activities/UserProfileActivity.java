@@ -64,6 +64,12 @@ public class UserProfileActivity extends AppCompatActivity {
         profilePager.setAdapter(userProfilePagerAdapter);
     }
 
+    public String getStringKey(String key){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getString(key, null);
+    }
+
+
     public void setProfileImage(String url){
         if(url != null && url.length() > 0){
             Picasso.with(this)

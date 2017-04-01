@@ -19,13 +19,15 @@ public abstract class Http extends AsyncTask<Void, Void, Void> {
     protected String uri;
     protected OnResponse<String> onResponse;
     protected int userId;
-    protected static final String BASE_URL = "http://192.168.8.101:8888";
+    //protected static final String BASE_URL = "http://192.168.0.3:8888";
+    protected String BASE_URL;
 
 
-    public Http(String uri, int userId, OnResponse<String> onResponse) {
+    public Http(String ip, String uri, int userId, OnResponse<String> onResponse) {
         this.uri = uri;
         this.onResponse = onResponse;
         this.userId = userId;
+        this.BASE_URL = ip;
     }
 
     protected HttpURLConnection setHeaders(HttpURLConnection urlConnection){

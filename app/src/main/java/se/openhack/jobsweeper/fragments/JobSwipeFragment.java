@@ -60,7 +60,8 @@ public class JobSwipeFragment extends Fragment {
     private void collectJobs(){
         spinner.setVisibility(View.VISIBLE);
         int userId = ((MainActivity)getActivity()).getIntKey("userId");
-        HttpGet getjobs = new HttpGet("/jobs", userId, new OnResponse<String>() {
+        String ip = ((MainActivity)getActivity()).getStringKey("ip");
+        HttpGet getjobs = new HttpGet(ip, "/jobs", userId, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
                 try {
@@ -102,6 +103,7 @@ public class JobSwipeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_job_swipe, container, false);
         //add the view via xml or programmatically
@@ -140,8 +142,8 @@ public class JobSwipeFragment extends Fragment {
                     }
                     object.put("tags", tags);
 
-
-                    HttpPost post = new HttpPost("/jobs", userId, new OnResponse<String>() {
+                    String ip = ((MainActivity)getActivity()).getStringKey("ip");
+                    HttpPost post = new HttpPost(ip, "/jobs", userId, new OnResponse<String>() {
                         @Override
                         public void onResponse(String res) {
                             System.out.println(res);

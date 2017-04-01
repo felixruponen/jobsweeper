@@ -12,13 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import se.openhack.jobsweeper.Helper;
 import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
+import se.openhack.jobsweeper.activities.MainActivity;
 import se.openhack.jobsweeper.activities.UserProfileActivity;
 import se.openhack.jobsweeper.http.HttpGet;
 import se.openhack.jobsweeper.http.HttpPost;
@@ -79,7 +82,8 @@ public class UserPreferenceFragment extends Fragment {
         viewHolder.progressBar.setVisibility(View.VISIBLE);
         viewHolder.txtTag.setVisibility(View.GONE);
 
-        HttpPost editTag = new HttpPost("/update-tags", userid, new OnResponse<String>() {
+        String ip = ((UserProfileActivity)getActivity()).getStringKey("ip");
+        HttpPost editTag = new HttpPost(ip, "/update-tags", userid, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
                 viewHolder.progressBar.setVisibility(View.GONE);
@@ -138,10 +142,16 @@ public class UserPreferenceFragment extends Fragment {
 
         int userId = ((UserProfileActivity)getActivity()).getIntKey("userId");
 
-
-        HttpGet getUser = new HttpGet("/user", userId, new OnResponse<String>() {
+        String ip = ((UserProfileActivity)getActivity()).getStringKey("ip");
+        HttpGet getUser = new HttpGet(ip, "/user", userId, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
+
+                if(res == null){
+                    res = Helper.getMockUser();
+                    Toast.makeText(getActivity(), "Mocking user", Toast.LENGTH_SHORT).show();
+                }
+
                 user = new User(res);
                 ((UserProfileActivity)getActivity()).setProfileImage(user.getImage());
                 ((UserProfileActivity)getActivity()).setProfileName(user.getName());

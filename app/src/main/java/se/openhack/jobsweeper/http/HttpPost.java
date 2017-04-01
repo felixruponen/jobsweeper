@@ -19,8 +19,8 @@ public class HttpPost extends Http {
     String payload;
     String response;
 
-    public HttpPost(String uri, int userId, OnResponse<String> onResponse, String payload) {
-        super(uri, userId, onResponse);
+    public HttpPost(String ip, String uri, int userId, OnResponse<String> onResponse, String payload) {
+        super(ip, uri, userId, onResponse);
         this.payload = payload;
     }
 
@@ -30,6 +30,7 @@ public class HttpPost extends Http {
         try {
             url = new URL(BASE_URL + uri);
 
+            Log.i("HTTP-POST", BASE_URL + uri);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoInput(true);

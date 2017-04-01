@@ -51,9 +51,11 @@ public class User extends Model {
 
             this.tags = new ArrayList<>();
 
-            for(int i = 0; i < tags.length(); i++){
-                JSONObject tag = tags.optJSONObject(i);
-                this.tags.add(new Tag(tag.toString()));
+            if(tags != null){
+                for(int i = 0; i < tags.length(); i++){
+                    JSONObject tag = tags.optJSONObject(i);
+                    this.tags.add(new Tag(tag.toString()));
+                }
             }
 
         } catch (JSONException e) {

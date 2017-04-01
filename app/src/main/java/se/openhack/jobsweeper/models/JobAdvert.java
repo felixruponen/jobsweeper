@@ -68,10 +68,12 @@ public class JobAdvert extends Model {
             this.workspace = new Workspace(workspace.toString());
             this.requirements = new Requirements(requirements.toString());
 
-            JSONArray tags = jobAdvert.getJSONArray("tags");
+            JSONArray tags = jobAdvert.optJSONArray("tags");
 
-            for(int i = 0; i < tags.length(); i++){
-                this.tags.add(tags.getString(i));
+            if(tags != null){
+                for(int i = 0; i < tags.length(); i++){
+                    this.tags.add(tags.getString(i));
+                }
             }
 
         } catch (JSONException e) {

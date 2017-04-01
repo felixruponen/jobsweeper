@@ -6,6 +6,28 @@ package se.openhack.jobsweeper;
 
 public class Helper {
 
+    public static String getMockUser(){
+        return "{\n" +
+                "    \"id\": 2,\n" +
+                "    \"image\": \"https://i.ytimg.com/vi/7p13vPNTQkQ/hqdefault.jpg\",\n" +
+                "    \"name\": \"Felex P\",\n" +
+                "    \"tags\": [\n" +
+                "        {\n" +
+                "            \"counter\": 2,\n" +
+                "            \"name\": \"Web\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"counter\": 2,\n" +
+                "            \"name\": \"Java\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"counter\": 0,\n" +
+                "            \"name\": \"SQL\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+    }
+
     public static String getMockResponse(){
        return "[\n" +
                 "  {\n" +
@@ -119,4 +141,59 @@ public class Helper {
                 "]";
     }
 
+    public static String getSwipesMock() {
+        return "[\n" +
+                "    {\n" +
+                "        \"platsannons\": {\n" +
+                "            \"annons\": {\n" +
+                "                \"annonsid\": \"7114219\",\n" +
+                "                \"annonsrubrik\": \"Relationsfokuserad backendutvecklare till Per & Per\",\n" +
+                "                \"annonstext\": \"För dig som vill utvecklas som backend-utvecklare finns nu chansen att bli en del av det härliga teamet på IT-Bolaget Per &amp; Per. Vill du variera det tekniska uppdraget som utvecklare med kundkontakt och service, samtidigt som du erbjuds utvecklingsmöjligheter i ett härligt gäng, då har du hittat helt rätt! \\n\\nOM TJÄNSTEN \\nIt-bolaget Per &amp; Per levererar skräddarsydda IT-lösningar till sina kunder. Att leverera kundanpassade mobilappar för användning i fält innebär både täta kundkontakter men också att arbeta i teknikens absoluta framkant. Academic Work söker därför nu för Per &amp; Pers räkning en framåttänkande systemutvecklare som kommer vara en del av deras backendutveckling. \\n\\nDen här rekryteringsprocessen hanteras av Academic Work och Per &amp; Pers önskemål är att alla samtal och mail kring tjänsten går till\\n AcademicWork\\n\\nUppdraget är en del av vår personaluthyrning. Du kommer vara anställd av Academic Work och arbeta som konsult hos Per &amp; Per. Deras intention är att du på sikt ska kunna bli anställd direkt hos dem, förutsatt att alla parter är nöjda med samarbetet.\\n\\nARBETSUPPGIFTER \\nSom backendutvecklare kommer du få ta del av ett systemutvecklingsprojekts hela resa. Din huvudsakliga uppgift kommer vara att utveckla skräddarsydda funktioner efter våra kunders behov, men du kommer även att ha en hel del kundkontakt och medverka vid exempelvis workshops och designmöten. Du kommer att ingå i ett team om upp till fyra personer som stöttar varandra i det dagliga arbetet. \\n\\nDu kommer till exempel att: \\n* Utveckla backend-tjänster för de mobilappar som vi tar fram åt våra kunder.\\n* Bygga integrationer mot våra kunders verksamhetssystem.\\n* Träffa kunder och diskutera allt från krav på nya funktioner till återkoppling på tidigare leveranser.\\n\\nTjänsten passar dig som gillar att tänka kreativt och arbeta i små team för att plocka fram för kunden skräddarsydda lösningar. Du är bra på att analysera krav från beställare och därefter på egen hand ta fram smarta lösningar. Du kommer ha ett stort inflytande över din egen tid, vilket ställer krav på din förmåga att kunna planera och strukturera ditt arbete. \\n\\nPå Per &amp; Per erbjuds du möjligheter till kompetensutveckling, regelbundna medarbetarsamtal samt en individuell utvecklingsplan. Vi söker därför dig som ständigt är sugen på att ta nästa steg och utvecklas både inom din yrkesroll och som person.\\n\\nVI SÖKER DIG SOM \\nVi söker dig som:\\n* Har en minst 3-årig högskoleexamen inom systemvetenskap, dataingenjör eller likvärdig utbildning.\\n* Har god programmeringsvana och kan C# och .Net eller känner att det är något som du verkligen skulle vilja lära dig.\\n\\nDet är meriterande om du:\\n*Har erfarenhet av programmering.\\n*Har erfarenhet av service, kommunikation och kundbemötande.\\n\\nVi lägger stor vikt vid personlig lämplighet och vi ser gärna att du är en lagspelare som trivs bra att arbeta i team, som med gemensamma krafter verkar mot ett mål. Du är kommunikativ i ditt sätt att arbeta och kan tydligt förmedla dina tankar och idéer till andra teammedlemmar samt är inte rädd att be om råd i obekanta situationer. Du är driven och sugen på att ständigt erövra ny information för att därmed växa som person tillsammans med företaget. \\n\\nPå Per &amp; Per är det högt i tak och man värnar om att det är bra stämning i gruppen. Bland de anställda finns ett gemensamt intresse för friluftsliv och idrott, vilket ofta innebär att konferenser och teambuilding kantas av fysiska aktiviteter.  \\n\\nÖVRIG INFORMATION  \\n\\n\\n* Start: Omgående\\n* Omfattning: Heltid\\n* Placering: Linköping\\n* Sök tjänsten genom att klicka på Ansök nedan. Vi går igenom urvalet löpande och annonsen kan stängas ner innan tjänsten är tillsatt om vi gått över till urvals- och intervjufasen.\\n* Vi tar inte emot ansökningar via mail men har du specifika frågor kring tjänsten besvaras dessa på lin01@academicwork.se under kontorstid. Skriv annonstiteln i rubriken och kopiera gärna in länken till annonsen i ditt mail. För generella funderingar kring din ansökan/vår rekryteringsprocess finns vi ofta tillgängliga i chatten här på webben under vardagar, hör gärna av dig där!\\n\\n\\nAcademic Work är Home of the Young Professionals. Vi vänder oss till dig som är akademiker och fortfarande studerar på högskola/universitet, är nyutexaminerad eller har några års arbetslivserfarenhet. \\n\\n\\n* Vårt erbjudande till dig som heltidskonsult hos Academic Work inkluderar utöver kollektivavtalsenliga villkor och dedikerad konsultchef också rabatter och erbjudanden genom vår konsultportal. Läs mer om vårt erbjudande här\\n\\n\\nSKYDD FÖR DIN PERSONLIGA INTEGRITET\\n\\nNär du skickar in din ansökan till Academic Work godkänner och samtycker du till att Academic Work behandlar dina personuppgifter enligt Personuppgiftslagen. Läs mer under vår PuL-sida.\\n\\nINFORMATION OM FÖRETAGET \\nIT-Bolaget Per &amp; Per är ett litet företag med en platt organisation. Vi jobbar idag mot kunder runt om i Norden, de flesta inom skogsbranschen. Alla som jobbar på Per &amp; Per har kontakt med våra kunder och även andra företag som vi samarbetar med. De appar vi utvecklar har tagits emot väl och är viktiga verktyg i det dagliga arbetet. Framgången har gett mersmak och vår ambition är att växa och nå fler kunder både i Sverige och internationellt.\",\n" +
+                "                \"anstallningstyp\": \"Vanlig anställning\",\n" +
+                "                \"antal_platser\": \"1\",\n" +
+                "                \"antalplatserVisa\": 1,\n" +
+                "                \"kommunkod\": 580,\n" +
+                "                \"kommunnamn\": \"Linköping\",\n" +
+                "                \"platsannonsUrl\": \"http://www.arbetsformedlingen.se/ledigajobb?id=7114219\",\n" +
+                "                \"publiceraddatum\": \"2017-03-22T12:00:51.653+01:00\",\n" +
+                "                \"yrkesbenamning\": \"Systemutvecklare/Programmerare\",\n" +
+                "                \"yrkesid\": 2419\n" +
+                "            },\n" +
+                "            \"ansokan\": {\n" +
+                "                \"ovrigt_om_ansokan\": \"\",\n" +
+                "                \"referens\": \"14984857\",\n" +
+                "                \"sista_ansokningsdag\": \"2017-04-22T00:00:00+02:00\",\n" +
+                "                \"webbplats\": \"http://www.academicwork.se/jobad/relationsfokuserad-backendutvecklare-till-per-per/14984857?apply=1\"\n" +
+                "            },\n" +
+                "            \"arbetsplats\": {\n" +
+                "                \"arbetsplatsnamn\": \"Academic Work\",\n" +
+                "                \"besoksadress\": \"Drottninggatan 23, 582 25 Linköping\",\n" +
+                "                \"hemsida\": \"http://www.academicwork.se\",\n" +
+                "                \"kontaktpersonlista\": {\n" +
+                "                    \"kontaktpersondata\": [\n" +
+                "                        {\n" +
+                "                            \"namn\": \"Victoria Hencz\"\n" +
+                "                        }\n" +
+                "                    ]\n" +
+                "                },\n" +
+                "                \"land\": \"Sverige\",\n" +
+                "                \"postadress\": \"Drottninggatan 23\",\n" +
+                "                \"postland\": \"Sverige\",\n" +
+                "                \"postnummer\": \"58225\",\n" +
+                "                \"postort\": \"Linköping\"\n" +
+                "            },\n" +
+                "            \"krav\": {\n" +
+                "                \"egenbil\": false\n" +
+                "            },\n" +
+                "            \"villkor\": {\n" +
+                "                \"arbetstid\": \"Heltid\",\n" +
+                "                \"arbetstidvaraktighet\": \"Heltid\\r\\n8-17\",\n" +
+                "                \"loneform\": \"Enligt avtal\",\n" +
+                "                \"lonetyp\": \"Fast månads- vecko- eller timlön\",\n" +
+                "                \"varaktighet\": \"6 månader eller längre\"\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "]";
+    }
 }

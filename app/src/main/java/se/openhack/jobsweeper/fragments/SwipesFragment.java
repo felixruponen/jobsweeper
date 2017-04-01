@@ -18,8 +18,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.openhack.jobsweeper.Helper;
 import se.openhack.jobsweeper.OnResponse;
 import se.openhack.jobsweeper.R;
+import se.openhack.jobsweeper.activities.MainActivity;
 import se.openhack.jobsweeper.activities.UserProfileActivity;
 import se.openhack.jobsweeper.http.HttpGet;
 import se.openhack.jobsweeper.models.JobAdvert;
@@ -54,10 +56,16 @@ public class SwipesFragment extends Fragment {
 
         int userId = ((UserProfileActivity)getActivity()).getIntKey("userId");
         swipes = new ArrayList<>();
-        HttpGet getSwipes = new HttpGet(url, userId, new OnResponse<String>() {
+        String ip = ((UserProfileActivity)getActivity()).getStringKey("ip");
+        HttpGet getSwipes = new HttpGet(ip, url, userId, new OnResponse<String>() {
             @Override
             public void onResponse(String res) {
                 try {
+
+                    if(res == null){
+                        res = Helper.getSwipesMock();
+                    }
+
                     JSONArray jsonSwipes = new JSONArray(res);
                     swipes.clear();
                     for(int i = 0; i < jsonSwipes.length(); i++){

@@ -1,5 +1,6 @@
 package se.openhack.jobsweeper.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -7,12 +8,17 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import se.openhack.jobsweeper.R;
@@ -20,6 +26,7 @@ import se.openhack.jobsweeper.fragments.JobSwipeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String m_Text;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,6 +54,40 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Set ip");
+
+                final EditText input = new EditText(this);
+                //input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                input.setText(getStringKey("ip"));
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                         m_Text = input.getText().toString();
+
+                        saveStringKey("ip", m_Text);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+                return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
